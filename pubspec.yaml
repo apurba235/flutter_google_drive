@@ -1,0 +1,25 @@
+name: flutter_google_drive
+description: "Google Drive Handler"
+version: 0.0.1
+homepage: https://github.com/apurba235/flutter_google_drive
+
+environment:
+  sdk: ^3.5.3
+  flutter: ">=1.17.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  google_sign_in: ^6.2.1
+  http: ^1.2.2
+  googleapis: ^13.2.0
+  googleapis_auth: ^1.6.0
+  path_provider: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+
+flutter:
