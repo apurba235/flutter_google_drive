@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter_google_drive/src/http_client.dart';
 import 'package:flutter_google_drive/src/mime_type.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -87,7 +88,7 @@ class DriveOperations {
     log(file.contentType.toString(), name: 'Apu');
     log(file.length.toString(), name: 'Apu1');
 
-    final directory = await getExternalStorageDirectory();
+    final directory = Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationSupportDirectory();
     print(directory?.path);
     io.File saveFile = io.File('${directory?.path}/${DateTime.now().millisecondsSinceEpoch}$fName');
     List<int> dataStore = [];
