@@ -80,6 +80,7 @@ class _ShowFilesState extends State<ShowFiles> {
     setState(() {
       isLoading = true;
     });
+    selectedFile = [];
     final fileList = await DriveOperations.ins.filesInFolder(name, mimeType);
     driveFiles = fileList?.files ?? [];
     setState(() {
