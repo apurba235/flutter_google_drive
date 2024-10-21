@@ -150,7 +150,7 @@ class _ShowFilesState extends State<ShowFiles> {
               padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               child: Column(
                 children: [
-                  SizedBox(height: MediaQuery.of(context).padding.top),
+                  // SizedBox(height: MediaQuery.of(context).padding.top),
                   ///
                   Expanded(
                     child: SingleChildScrollView(
