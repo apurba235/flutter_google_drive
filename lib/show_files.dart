@@ -118,9 +118,37 @@ class _ShowFilesState extends State<ShowFiles> {
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).padding.top),
-                  const Text(
-                    'Choose File',
-                    style: TextStyle(fontWeight: FontWeight.w700),
+                  Row(
+                    children: [
+                      BackButton(
+                        onPressed: () async{
+                          if (_fileName.isEmpty) {
+                            Navigator.of(context).pop([]);
+                          } else {
+                            if (_fileName.length > 1) {
+                              await getFilesInFolder(_fileName[_fileName.length - 2], _mimeType[_mimeType.length - 2]);
+                            } else {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              driveFiles = await DriveOperations.ins.getRootDirectoryFiles();
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                            _fileName.removeLast();
+                            _mimeType.removeLast();
+                          }
+                        },
+                      ),
+                      const Expanded(
+                        child: Text(
+                          'Choose File',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
 
