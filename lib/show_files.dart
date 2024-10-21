@@ -97,6 +97,7 @@ class _ShowFilesState extends State<ShowFiles> {
           // Navigator.of(context).pop([]);
         } else {
           if (_fileName.length > 1) {
+            selectedFile = [];
             await getFilesInFolder(_fileName[_fileName.length - 2], _mimeType[_mimeType.length - 2]);
           } else {
             setState(() {
@@ -119,6 +120,7 @@ class _ShowFilesState extends State<ShowFiles> {
                 Navigator.of(context).pop([]);
               } else {
                 if (_fileName.length > 1) {
+                  selectedFile = [];
                   await getFilesInFolder(_fileName[_fileName.length - 2], _mimeType[_mimeType.length - 2]);
                 } else {
                   setState(() {
