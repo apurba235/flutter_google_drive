@@ -68,6 +68,7 @@ class _ShowFilesState extends State<ShowFiles> {
       setState(() {
         isLoading = true;
       });
+      selectedFile = [];
       final fileList = await DriveOperations.ins.filesInFolder(driveFiles[index].name ?? '', driveFiles[index].mimeType ?? '');
       driveFiles = fileList?.files ?? [];
       setState(() {
@@ -103,6 +104,7 @@ class _ShowFilesState extends State<ShowFiles> {
             setState(() {
               isLoading = true;
             });
+            selectedFile = [];
             driveFiles = await DriveOperations.ins.getRootDirectoryFiles();
             setState(() {
               isLoading = false;
@@ -126,6 +128,7 @@ class _ShowFilesState extends State<ShowFiles> {
                   setState(() {
                     isLoading = true;
                   });
+                  selectedFile = [];
                   driveFiles = await DriveOperations.ins.getRootDirectoryFiles();
                   setState(() {
                     isLoading = false;
