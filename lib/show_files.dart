@@ -151,8 +151,6 @@ class _ShowFilesState extends State<ShowFiles> {
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).padding.top),
-                  const SizedBox(height: 20),
-
                   ///
                   Expanded(
                     child: SingleChildScrollView(
