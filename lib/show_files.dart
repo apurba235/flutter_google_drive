@@ -111,6 +111,36 @@ class _ShowFilesState extends State<ShowFiles> {
         }
       },
       child: Scaffold(
+        appBar: AppBar(
+          leading: BackButton(
+            onPressed: () async{
+              if (_fileName.isEmpty) {
+                Navigator.of(context).pop([]);
+              } else {
+                if (_fileName.length > 1) {
+                  await getFilesInFolder(_fileName[_fileName.length - 2], _mimeType[_mimeType.length - 2]);
+                } else {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  driveFiles = await DriveOperations.ins.getRootDirectoryFiles();
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
+                _fileName.removeLast();
+                _mimeType.removeLast();
+              }
+            },
+            color: Colors.black,
+          ),
+          title: const Text(
+            'Choose File',
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.w700),
+          ),
+          centerTitle: true,
+        ),
         body: Stack(
           children: [
             Padding(
@@ -118,39 +148,6 @@ class _ShowFilesState extends State<ShowFiles> {
               child: Column(
                 children: [
                   SizedBox(height: MediaQuery.of(context).padding.top),
-                  Row(
-                    children: [
-                      BackButton(
-                        onPressed: () async{
-                          if (_fileName.isEmpty) {
-                            Navigator.of(context).pop([]);
-                          } else {
-                            if (_fileName.length > 1) {
-                              await getFilesInFolder(_fileName[_fileName.length - 2], _mimeType[_mimeType.length - 2]);
-                            } else {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              driveFiles = await DriveOperations.ins.getRootDirectoryFiles();
-                              setState(() {
-                                isLoading = false;
-                              });
-                            }
-                            _fileName.removeLast();
-                            _mimeType.removeLast();
-                          }
-                        },
-                        color: Colors.black,
-                      ),
-                      const Expanded(
-                        child: Text(
-                          'Choose File ty',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 20),
 
                   ///
