@@ -140,6 +140,7 @@ class _ShowFilesState extends State<ShowFiles> {
                             _mimeType.removeLast();
                           }
                         },
+                        color: Colors.black,
                       ),
                       const Expanded(
                         child: Text(
