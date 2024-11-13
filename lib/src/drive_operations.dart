@@ -17,11 +17,9 @@ class DriveOperations {
 
   List<File> driveFiles = [];
 
-
   Future<void> setDrive() async {
     final googleAuthData = await GoogleSignIn(
-      scopes: ['email', DriveApi.driveFileScope],
-      clientId: "544566185873-jv1uthmce9s0kcqh059qabt6kl97dcgh.apps.googleusercontent.com"
+      scopes: [DriveApi.driveFileScope],
     ).signIn();
 
     if (googleAuthData == null) {
