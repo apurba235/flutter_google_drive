@@ -17,11 +17,17 @@ class DriveOperations {
 
   List<File> driveFiles = [];
 
+
   Future<void> setDrive() async {
-    final googleAuthData = await GoogleSignIn(
-      scopes: ['email', DriveApi.driveFileScope],
-      clientId: "544566185873-jv1uthmce9s0kcqh059qabt6kl97dcgh.apps.googleusercontent.com"
-    ).signIn();
+    final googleSignIn =
+    GoogleSignIn.standard(scopes: [DriveApi.driveFileScope]);
+    final GoogleSignInAuthentication? auth =
+    await googleSignIn.currentUser?.authentication;
+    final String? googleAuthData = auth?.accessToken;
+    // final googleAuthData = await GoogleSignIn(
+    //   scopes: ['email', DriveApi.driveFileScope],
+    //   clientId: "544566185873-jv1uthmce9s0kcqh059qabt6kl97dcgh.apps.googleusercontent.com"
+    // ).signIn();
 
     if (googleAuthData == null) {
       return;
