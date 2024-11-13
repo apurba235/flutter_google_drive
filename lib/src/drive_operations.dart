@@ -19,7 +19,7 @@ class DriveOperations {
 
   Future<void> setDrive() async {
     final googleAuthData = await GoogleSignIn(
-      scopes: ['email', 'https://www.googleapis.com/auth/drive', DriveApi.driveReadonlyScope],
+      scopes: ['email', 'https://www.googleapis.com/auth/drive', DriveApi.driveFileScope],
     ).signIn();
 
     if (googleAuthData == null) {
@@ -31,7 +31,7 @@ class DriveOperations {
   }
 
   Future<List<File>> getRootDirectoryFiles() async {
-    final lst = await DriveOperations.ins.driveApi?.files.list(spaces: 'drive', q: "'root' in parents");
+    final lst = await DriveOperations.ins.driveApi?.files.list(q: "'me' in owners");
     for (int i = 0; i < (lst?.files?.length ?? 0); i++) {
       checkFileTypeAndAddToList(lst?.files?[i] ?? File());
     }
