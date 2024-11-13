@@ -31,6 +31,7 @@ class DriveOperations {
   }
 
   Future<List<File>> getRootDirectoryFiles() async {
+    driveFiles = [];
     final lst = await DriveOperations.ins.driveApi?.files.list(q: "'me' in owners");
     for (int i = 0; i < (lst?.files?.length ?? 0); i++) {
       checkFileTypeAndAddToList(lst?.files?[i] ?? File());
