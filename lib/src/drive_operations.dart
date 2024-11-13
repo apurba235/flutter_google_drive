@@ -5,12 +5,8 @@ import 'package:flutter_google_drive/src/http_client.dart';
 import 'package:flutter_google_drive/src/mime_type.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart';
-import 'package:googleapis_auth/auth_io.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
-import 'package:googleapis_auth/googleapis_auth.dart' as auth;
-import 'package:http/http.dart' as http;
-
 
 class DriveOperations {
   DriveOperations._();
@@ -20,54 +16,19 @@ class DriveOperations {
   DriveApi? driveApi;
 
   List<File> driveFiles = [];
-  late auth.AutoRefreshingAuthClient _client;
-
-  // Future<AccessCredentials> obtainCredentials() async {
-  //   final client = http.Client();
-  //
-  //   try {
-  //     return await obtainAccessCredentialsViaUserConsent(
-  //       ClientId('....apps.googleusercontent.com', '...'),
-  //       [DriveApi.driveFileScope],
-  //       client,
-  //       _prompt,
-  //     );
-  //   } finally {
-  //     client.close();
-  //   }
-  // }
-  //
-  // void _prompt(String url) {
-  //   print('Please go to the following URL and grant access:');
-  //   print('  => $url');
-  //   print('');
-  // }
 
   Future<void> setDrive() async {
+    final googleAuthData = await GoogleSignIn(
+      scopes: [DriveApi.driveFileScope],
+    ).signIn();
 
-    // final data = await obtainCredentials();
-    final clientId = auth.ClientId(
-        "544566185873-jv1uthmce9s0kcqh059qabt6kl97dcgh.apps.googleusercontent.com", "AIzaSyDeh69HD5cYwQ0QRx3HNQYdSxxyIzTgas8");
-    //
-    // // Use Google User Consent authentication
-    // _client = await auth.;
-    // await auth.clientViaUserConsent(clientId, DriveApi.driveFileScope, (url) async {
-    //   if (await canLaunch(url)) {
-    //     await launch(url);
-    //   }
-    // });
-    final client = auth.clientViaApiKey('AIzaSyALcIfxhnkPpDviHDoCwRyLRXEbVhnBVxw');
-    // final googleAuthData = await GoogleSignIn(
-    //   scopes: [DriveApi.driveFileScope],
-    // ).signIn();
-    //
-    // if (googleAuthData == null) {
-    //   return;
-    // }
-    //
-    // // log(googleAuthData.id, name: 'ID');
-    //
-    // final client = GoogleHttpClient(await googleAuthData.authHeaders);
+    if (googleAuthData == null) {
+      return;
+    }
+
+    log(googleAuthData.id, name: 'ID');
+
+    final client = GoogleHttpClient(await googleAuthData.authHeaders);
     driveApi = DriveApi(client);
   }
 
